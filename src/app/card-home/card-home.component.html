@@ -1,1 +1,26 @@
 <p>card-home works!</p>
+
+<div>
+    <h2>
+        adding socials
+    </h2>
+    <li *ngFor="let social of socialList">
+        <button mat-button (click)="addSocial(social.name)"> {{social.name}} </button>
+    </li>
+</div>
+
+<div>
+    <h2>
+        remove socials
+    </h2>
+    <li *ngFor="let social of socialList">
+        <button mat-button (click)="removeSocial(social.name)"> {{social.name}} </button>
+    </li>
+</div>
+
+
+<!-- <div *ngIf="socials$ | async">
+    <li *ngFor="let social of socials$ | async" >
+        {{ social.name }}
+    </li>
+</div> -->

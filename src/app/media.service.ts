@@ -11,7 +11,7 @@ export class MediaService {
 
   getTwitterTrends(id?: number): Observable<any> {
     if (!(typeof id!='undefined' && id)) { id = 1}
-    const url = "https://api.twitter.com/1.1/trends/place.json";
+    const url = "https://api.twitter.com/1.1/trends/place.json" + "?id=" + id;
     return this.http.get(url);
   }
 }

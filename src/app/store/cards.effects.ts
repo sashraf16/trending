@@ -21,15 +21,15 @@ export class CardsEffects {
     //     )
     //   ));
 
-    loadAllTrends$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(CardActions.loadTrends),
-            mergeMap(() => {
-                return this.mediaService.getTwitterTrends().pipe(
-                    map((data => CardActions.loadTrendsSuccess({ media: data }))));
-            })
-        )
-    );
+    // loadAllTrends$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(CardActions.loadTrends),
+    //         mergeMap(() => {
+    //             return this.mediaService.getTwitterTrends().pipe(
+    //                 map((data => CardActions.loadTrendsSuccess({ media: data }))));
+    //         })
+    //     )
+    // );
 
     // @Effect()
     // loadMovies$ = this.actions$
