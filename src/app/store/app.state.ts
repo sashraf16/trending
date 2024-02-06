@@ -1,4 +1,4 @@
-import { SocialMediasState } from "./cards.reducers";
+import { SocialMediasState } from "../models/SocialMediaState";
 
 export interface AppState {
     socialMedias: SocialMediasState;

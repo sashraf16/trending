@@ -1,11 +1,22 @@
 import { Injectable } from "@angular/core";
 import { MediaService } from "../media.service";
-import { map, mergeMap, switchMap } from "rxjs";
+import { catchError, map, mergeMap, of, switchMap } from "rxjs";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as CardActions from './cards.actions'
 
 @Injectable()
 export class CardsEffects {
+
+    getSocials$ = createEffect(() =>
+        this.actions$.pipe(ofType(CardActions.getSocials), mergeMap(() => {
+            return this.mediaService.getSocials().pipe(
+                map(socials => CardActions.getApiSuccess({ socials })),
+                catchError((error) =>
+                    of(CardActions.getApiFailure({ error: error.message }))
+                )
+            );
+        }))
+    )
 
     constructor(
         private actions$: Actions,

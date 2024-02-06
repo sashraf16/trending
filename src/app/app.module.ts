@@ -9,7 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { cardReducer } from './store/cards.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { CardsEffects } from './store/cards.effects';
@@ -28,8 +28,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,
-    StoreModule.forRoot({medias: cardReducer}),
-    EffectsModule.forRoot([CardsEffects]),
+    StoreModule.forRoot({socialMedias: cardReducer}),
+    EffectsModule.forRoot(CardsEffects),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

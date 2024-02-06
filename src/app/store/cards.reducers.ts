@@ -1,27 +1,34 @@
 import { createReducer, on } from "@ngrx/store";
-import { SocialMedia } from "../models/SocialMedia";
-import { addSocial, removeSocial } from "./cards.actions";
-import { SocialMediaEnum } from "../models/SocialMediaEnum";
-
-export interface SocialMediasState {
-    medias: SocialMedia[],
-    error: string;
-    status: string | null;
-}
+import * as CardActions from "./cards.actions";
+import { SocialMediasState } from "../models/SocialMediaState";
 
 export const initialState: SocialMediasState = {
-    medias: [{ name: SocialMediaEnum.Twitter}],
+    medias: [],
     error: '',
-    status: 'pending',
+    isLoading: false,
 }
 
 export const cardReducer = createReducer(
     initialState,
-    on(addSocial, (state, { name }) => ({
+    on(CardActions.getSocials, (state) => ({
+        ...state,
+        isLoading: true
+    })),
+    on(CardActions.getApiSuccess, (state, action) => ({
+        ...state,
+        isLoading: false,
+        medias: action.socials
+    })),
+    on(CardActions.getApiFailure, (state, action) => ({
+        ...state,
+        isLoading: false,
+        error: action.error
+    })),
+    on(CardActions.addSocial, (state, { name }) => ({
         ...state,
         media: [...state.medias, { name: name }]
     })),
-    on(removeSocial, (state, { name }) => ({
+    on(CardActions.removeSocial, (state, { name }) => ({
         ...state,
         media: state.medias.filter(x => x.name !== name)
     })),

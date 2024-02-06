@@ -1,14 +1,36 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { AppState } from "./app.state";
-import { SocialMediasState } from "./cards.reducers";
+import { SocialMediasState } from "../models/SocialMediaState";
 
-export const selectSocials = (state: AppState) => state.socialMedias;
-export const selectAllSocials = createSelector(
-    selectSocials,
-    (state: SocialMediasState) => state.medias
-)
+// const ordersFeature = createFeatureSelector(Features.Orders); 
+// // always keep an enum of Features
+// const allOrders = createSelector(ordersFeature, orders => orders.list);
+// const ordersLoading = createSelector(ordersFeature, orders => orders.loading.list);
+// const selectedOrders = createSelector(ordersFeature, orders => orders.selectedOrders);
 
-export const selectTheSocials = createSelector(selectSocials, socials => socials.medias);
+export const selectFeature = (state: AppState) => state.socialMedias;
 
-export const selector = createFeatureSelector<SocialMediasState>('medias');
-export const selector2 = createSelector(selector, (state: SocialMediasState) => state.medias);
+export const isLoadingSelector = createSelector(
+    selectFeature, 
+    (state: SocialMediasState) => state.isLoading
+);
+
+export const socialsSelector = createSelector(
+    selectFeature, 
+    (state) => state.medias
+);
+
+export const errorSelector = createSelector(
+    selectFeature, 
+    (state) => state.error
+);
+
+// export const selectAllSocials = createSelector(
+//     selectSocials,
+//     (state: SocialMediasState) => state.medias
+// )
+
+// export const selectTheSocials = createSelector(selectSocials, socials => socials.medias);
+
+// export const selector = createFeatureSelector<SocialMediasState>('medias');
+// export const medias2 = createSelector(selector, state => state.medias);
