@@ -24,13 +24,13 @@ export const cardReducer = createReducer(
         isLoading: false,
         error: action.error
     })),
-    on(CardActions.addSocial, (state, { name }) => ({
+    on(CardActions.addSocial, (state, { name: SocialMediaEnum }) => ({
         ...state,
-        media: [...state.medias, { name: name }]
+        medias: [...state.medias, { name: SocialMediaEnum }]
     })),
     on(CardActions.removeSocial, (state, { name }) => ({
         ...state,
-        media: state.medias.filter(x => x.name !== name)
+        medias: state.medias.filter(x => x.name !== name)
     })),
     // on(loadTrends, (state) => ({
     //     ...state,
