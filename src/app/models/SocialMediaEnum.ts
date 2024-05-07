@@ -1,4 +1,5 @@
 export enum SocialMediaEnum {
     Twitter = 'Twitter',
-    YouTube = 'YouTube'
+    YouTube = 'YouTube',
+    Instagram = 'Instagram'
 }

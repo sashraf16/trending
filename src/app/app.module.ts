@@ -6,6 +6,7 @@ import { MediaCardComponent } from './media-card/media-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon'
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -27,6 +28,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatIconModule,
     HttpClientModule,
     StoreModule.forRoot({socialMedias: cardReducer}),
     EffectsModule.forRoot(CardsEffects),

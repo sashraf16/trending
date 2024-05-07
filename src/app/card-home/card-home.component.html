@@ -1,55 +1,100 @@
-<p>card-home works!</p>
-
-<!-- <div *ngIf="isLoading$ | async" > hello is loading </div> -->
-{{ isLoading$ | async}}
-
-<!-- {{ test | async }} -->
-<!-- {{ isLoading$ | async}}
-<div *ngIf="isLoading$ | async">
-    HELLO
-    Loading...
-</div>
-<div>
-    hello world
-{{ socials$ | async }}
-
+<div class="p-4">
+    welcome to the trending application
 </div>
 
-<div *ngFor="let social of socials$ | async">
-    {{ social }}
-</div> -->
+<div class="p-4">
+    here are the platforms you are interested in:
+</div>
 
-<!-- <div>
-    <h2>
+<div class="flex justify-around columns-{{(socials$ | async)?.length}}">
+    <!-- <div class="p-4 columns-4"> -->
+    <div class="w-64 p-2" *ngFor="let item of socials$ | async">
+        <media-card [media]="item.name">
+        </media-card>
+        <!-- <mat-card class="text-white items-center">
+                {{ item.name }}
+        </mat-card> -->
+    </div>
+</div>
+
+<div class="p-4">
+    <h2 class="text-2xl items-center">
         adding socials
     </h2>
-    <li *ngFor="let social of socialList2">
-        <button mat-button (click)="addSocial(social)"> {{social}} </button>
-    </li>
+
+    <div class="grid place-content-center md:justify-start text-white p-2">
+        <div class="w-32 p-2" *ngIf="tt | async as tt">
+            <mat-card *ngIf="tt == -1">
+                <button mat-button (click)="addSocial(SocialMediaEnum.Twitter)"> twitter </button>
+            </mat-card>
+        </div>
+
+        <div class="w-32 p-2" *ngIf="ty | async as ty">
+            <mat-card *ngIf="ty == -1">
+                <button mat-button (click)="addSocial(SocialMediaEnum.YouTube)"> youtube </button>
+            </mat-card>
+        </div>
+
+        <div class="w-32 p-2" *ngIf="ti | async as ti">
+            <mat-card *ngIf="ti == -1">
+                <button mat-button (click)="addSocial(SocialMediaEnum.Instagram)"> instagram </button>
+            </mat-card>
+        </div>
+    </div>
+
+
+    <!-- {{ displaySocials | async}}
+    <li *ngFor="let social of displaySocials | async">
+        <button mat-button (click)="addSocial(social.name)"> {{ social.name }} </button>
+    </li> -->
 </div>
 
 
 
-<div>
-    <h2>
+<div class="p-4">
+    <h2 class="text-2xl">
         remove socials
     </h2>
-    <li *ngFor="let social of socialList">
-        <button mat-button (click)="removeSocial(social.name)"> {{social.name}} </button>
-    </li>
+    <div class="grid place-content-center md:justify-start text-white">
+        <div class="w-32 p-2" *ngFor="let social of socials$ | async">
+            <mat-card>
+                <button mat-button (click)="removeSocial(social.name)"> {{social.name}} </button>
+            </mat-card>
+        </div>
+    </div>
 </div>
- -->
 
 
 
-<div>
+
+<!-- <div>
     <button (click)="log()">log button</button>
-</div>
-
-
+</div> -->
+<!-- 
+test
+{{ tt | async | json}}
+test2 {{ tt | async}} -->
 
 <!-- <div *ngIf="socials$ | async">
     <li *ngFor="let social of $any(socials$)" >
         {{ social }}
     </li>
 </div> -->
+
+<!-- {{ displaySocials | json }}
+    <div *ngFor="let item of displaySocials" >
+        {{ item.name }}  
+    </div> -->
+
+<!-- <div *ngIf="socials$ | async as socials" >
+        {{ socials | json }}
+        {{ twitterSoc | json }}
+
+        check {{ twitterSoc === twitterSoc2 }}
+            ig {{ socials.includes(instagramSoc) }}
+            tw {{ socials.includes(twitterSoc) }}
+            <div *ngIf="socials.includes(twitterSoc)">
+            click to add twitter
+        </div>
+
+    </div> -->

@@ -19,6 +19,6 @@ export class MediaService {
 
   getSocials(): Observable<SocialMedia[]> {
     const socials = [ { name: SocialMediaEnum.Twitter }, { name: SocialMediaEnum.YouTube}];
-    return of(socials).pipe(delay(2000));
+    return of(socials).pipe(delay(1000));
   }
 }

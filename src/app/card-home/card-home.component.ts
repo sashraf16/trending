@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import * as CardActions from '../store/cards.actions';
 import { SocialMediaEnum } from '../models/SocialMediaEnum';
 import { isLoadingSelector, socialsSelector, errorSelector, selectFeature } from '../store/cards.selectors';
-import { Observable } from 'rxjs';
+import { Observable, concatMap, filter, find, forkJoin, map, of, toArray } from 'rxjs';
 import { SocialMedia } from '../models/SocialMedia';
 import { AppState } from '../store/app.state';
 
@@ -14,27 +14,71 @@ import { AppState } from '../store/app.state';
 })
 export class CardHomeComponent implements OnInit{
 
-  socialList = [{ name: SocialMediaEnum.Twitter }, { name: SocialMediaEnum.YouTube }];
-  socialList2 = ['Twi', 'you'];
+  SocialMediaEnum = SocialMediaEnum;
 
-  // socials$: Observable<SocialMedia[]> = this.store.select(medias2)
-  // socials$:any= this.store.select(medias2)
-  // test: any;
+  // twitterSoc = { name: SocialMediaEnum.Twitter};
+  // twitterSoc2 = { name: SocialMediaEnum.Twitter};
+  // instagramSoc = { name: SocialMediaEnum.Instagram};
+
+  // totalSocialList = of([{ name: SocialMediaEnum.Twitter }, { name: SocialMediaEnum.YouTube }, { name: SocialMediaEnum.Instagram}]);
+  // totalSocialList2 = ([{ name: SocialMediaEnum.Twitter }, { name: SocialMediaEnum.YouTube }, { name: SocialMediaEnum.Instagram}]);
+  // usedSocials: any;
+  // displaySocials$: any;
+  // displaySocials: any;
+  // displaySocials3: any;
+  // socialList2 = ['Twi', 'you'];
+
 
   isLoading$: Observable<boolean>;
   error$: Observable<string | null>;
   socials$: Observable<SocialMedia[]>;
-  test: any;
+
+  tt: Observable<number>;
+  ty: Observable<number>;
+  ti: Observable<number>;
 
 
   constructor(private store: Store<AppState>) { 
-    // this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.isLoading$ = this.store.select(isLoadingSelector);
-    // this.isLoading$ = this.store.pipe(select(isLoadingSelector))
     this.error$ = this.store.pipe(select(errorSelector));
     this.socials$ = this.store.pipe(select(socialsSelector));
 
-    this.test = this.store.select(selectFeature);
+
+    this.tt = this.socials$.pipe(map(s => s.findIndex(t => t.name == SocialMediaEnum.Twitter)));
+    this.ty = this.socials$.pipe(map(s => s.findIndex(t => t.name == SocialMediaEnum.YouTube)));
+    this.ti = this.socials$.pipe(map(x => x.findIndex(t => t.name == SocialMediaEnum.Instagram)));
+
+    // this.displaySocials = this.totalSocialList2.filter(soc => (this.socials$.pipe(map(so => so.map(s => {
+    //   var p = !so.includes(soc);
+    //   return p;
+    // })))))
+
+    // var s = this.socials$.pipe(map(x => x.map(t => t.name == 'Twitter')));
+    // console.log({s});
+
+
+    // this.displaySocials3 = this.store.pipe(select(socialsSelector2));
+
+    // this.displaySocials = this.totalSocialList.filter(x => (this.socials$.pipe(map(s => s.map(t => { return x == t})))));
+    // this.displaySocials$ = forkJoin(this.totalSocialList, this.socials$).pipe(map(([arr1, arr2]) => arr1.filter(x => arr2.indexOf(x) === -1)));
+
+    // this.displaySocials = this.totalSocialList.filter(x => this.socials$.pipe(map(s => !s.find( t => t === x))));
+    // this.socials$.pipe(map(x => x.filter(s => s === )))
+    // this.socials$.subscribe(x => {
+    //   console.log(this.totalSocialList2);
+    //   console.log({x});
+    //   let p = this.totalSocialList2.filter(m => {
+    //     console.log(m);
+    //     !x.includes(m);
+    //   });
+    //   var s = this.displaySocials;
+    //   console.log({s});
+    //   console.log({p});
+    // });
+    // this.displaySocials = this.totalSocialList.filter(x => !this.usedSocials.includes(x));
+    
+    // this.test = this.store.select(selectFeature);
+
     // this.error$ = this.store.select(errorSelector);
     // this.socials$ = this.store.select(socialsSelector);
   }
@@ -44,7 +88,7 @@ export class CardHomeComponent implements OnInit{
   //   this.store.dispatch(addSocial({name: social as SocialMediaEnum}));
   // }
 
-  addSocial(social: string) {
+  addSocial(social: SocialMediaEnum) {
     console.log(social);
     this.store.dispatch(CardActions.addSocial({name: social}));
   }
@@ -54,24 +98,22 @@ export class CardHomeComponent implements OnInit{
   }
 
   log() {
-    var s = this.isLoading$.subscribe(x => console.log(x));
-    console.log(s);
+    // var s = this.displaySocials;
+    // console.log({s});
+    // var s = this.isLoading$.subscribe(x => console.log(x));
+    // console.log(s);
 
     // var t = this.test;
     // console.log(t);
   }
 
   ngOnInit(): void {
-    // this.store.select<boolean>(isLoadingSelector).subscribe(x => {
-    //   this.test = x
-    //   console.log({x});
-    // });
-
-    this.test = this.store.select((store) => store.socialMedias);
     this.store.dispatch(CardActions.getSocials());
+    // this.displaySocials = this.totalSocialList2.filter(soc => this.socials$.pipe(map(s => s.map(t => t.name != soc.name))));
 
-    let s = this.test;
-    console.log({s});
+    // this.tt = this.socials$.pipe(map(x => x.map(t => t.name == SocialMediaEnum.Twitter)));
+
+
     // this.store.select(medias2).subscribe(x => this.test = x);
     // this.socials$ = this.store.select(selector);
     // this.store.select(selector).subscribe(s => console.log({s}));

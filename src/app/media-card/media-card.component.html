@@ -1,4 +1,28 @@
-<mat-card>simple card
+<div class="p-10">
 
-    {{ trends$ | async }}
+<div class="max-w-sm rounded overflow-hidden shadow-lg p-2">
+    <div>
+        generic card
+    </div>
+</div>
+</div>
+<div class="p-10">
+
+<!-- <div *ngIf="media === SocialMediaEnum.Twitter" class="text-white items-center grid p-2 max-w-2xl w-128 rounded overflow-hidden shadow-lg h-32 bg-gradient-to-r from-blue-400 to-blue-400"> -->
+    <div *ngIf="media === SocialMediaEnum.Twitter" class=" max-w-2xl rounded overflow-hidden shadow-lg ">
+    <!-- <mat-icon>cloud</mat-icon> -->
+    <div class="text-white items-center grid p-2 w-128 h-32" >
+        {{ media }}
+
+    </div>
+</div>
+</div>
+
+<div *ngIf="media === SocialMediaEnum.YouTube" class="text-white items-center p-2 max-w-2xl w-128 rounded overflow-hidden h-32 bg-gradient-to-r from-red-500 to-red-500">
+    <!-- <div *ngIf="media === SocialMediaEnum.YouTube" class="text-white items-center p-2 max-w-2xl w-128 rounded overflow-hidden h-32 bg-gradient-to-r from-red-500 to-red-500"> -->
+    {{ media }}
+</div>
+
+<mat-card *ngIf="media === SocialMediaEnum.Instagram" class="text-white items-center h-32 p-2 max-w-2xl w-128 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+    {{ media }}
 </mat-card>
